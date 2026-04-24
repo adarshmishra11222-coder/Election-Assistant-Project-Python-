@@ -1,1 +1,88 @@
 # Election-Assistant-Project-Python-
+# election_assistant.py
+# Interactive Election Assistant Project
+# Author: Adarsh (Hackathon-ready project)
+
+def show_menu():
+    print("\n=== Election Assistant ===")
+    print("1. Pre-Election Phase")
+    print("2. Election Timeline")
+    print("3. Voting Steps")
+    print("4. Post-Election Phase")
+    print("5. FAQs")
+    print("6. Practice Voting Simulation")
+    print("0. Exit")
+
+def pre_election():
+    print("\n--- Pre-Election Phase ---")
+    print("• Voter Registration: Citizens register before deadlines.")
+    print("• Candidate Nomination: Parties/independents file nominations.")
+    print("• Campaigning: Debates, rallies, advertisements.")
+
+def election_timeline():
+    print("\n--- Election Timeline ---")
+    print("• Announcement of Dates by Election Commission")
+    print("• Model Code of Conduct begins")
+    print("• Voting Day(s): Citizens cast votes")
+    print("• Counting Day: Votes are counted")
+    print("• Results declared and certified")
+
+def voting_steps():
+    print("\n--- Voting Steps ---")
+    print("1. Check registration on voter list")
+    print("2. Carry valid voter ID")
+    print("3. Go to assigned polling booth")
+    print("4. Cast vote via ballot/EVM")
+    print("5. Ink mark applied to finger")
+
+def post_election():
+    print("\n--- Post-Election Phase ---")
+    print("• Certification of results by Election Commission")
+    print("• Government formation by winning party/coalition")
+    print("• Swearing-in ceremony of leaders")
+
+def faqs():
+    print("\n--- FAQs ---")
+    print("Q: What if I’m not registered?")
+    print("A: You cannot vote. Register before the deadline.")
+    print("Q: Can I vote without voter ID?")
+    print("A: No, valid ID is mandatory.")
+    print("Q: How are results declared?")
+    print("A: After counting, Election Commission certifies results.")
+
+def voting_simulation():
+    print("\n--- Practice Voting Simulation ---")
+    candidates = ["Candidate A", "Candidate B", "Candidate C"]
+    print("Candidates:")
+    for i, c in enumerate(candidates, 1):
+        print(f"{i}. {c}")
+    choice = input("Cast your vote (enter number): ")
+    if choice.isdigit() and 1 <= int(choice) <= len(candidates):
+        print(f"You voted for {candidates[int(choice)-1]} ✅")
+    else:
+        print("Invalid choice ❌")
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Select an option: ")
+        if choice == "1":
+            pre_election()
+        elif choice == "2":
+            election_timeline()
+        elif choice == "3":
+            voting_steps()
+        elif choice == "4":
+            post_election()
+        elif choice == "5":
+            faqs()
+        elif choice == "6":
+            voting_simulation()
+        elif choice == "0":
+            print("Exiting Election Assistant. Goodbye!")
+            break
+        else:
+            print("Invalid option. Try again.")
+
+if __name__ == "__main__":
+    main()
