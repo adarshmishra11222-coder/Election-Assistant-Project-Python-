@@ -1,0 +1,143 @@
+
+# election_assistant_advanced.py
+# Enhanced Election Assistant with youth voter registration and voting features
+# Author: Adarsh (Hackathon-ready project)
+
+PHASES = {
+    "Pre-Election": [
+        "Voter Registration",
+        "Candidate Nomination",
+        "Campaigning"
+    ],
+    "Election Timeline": [
+        "Announcement of Dates",
+        "Voting Day(s)",
+        "Counting Day",
+        "Result Declaration"
+    ],
+    "Voting Steps": [
+        "Check registration",
+        "Carry voter ID",
+        "Go to polling booth",
+        "Cast vote via ballot/EVM",
+        "Ink mark applied"
+    ],
+    "Post-Election": [
+        "Certification of results",
+        "Government formation",
+        "Swearing-in ceremony"
+    ]
+}
+
+FAQS = {
+    "What if I’m not registered?": "You cannot vote. Register before the deadline.",
+    "Can I vote without voter ID?": "No, valid ID is mandatory.",
+    "How are results declared?": "After counting, Election Commission certifies results."
+}
+
+CANDIDATES = ["Candidate A", "Candidate B", "Candidate C"]
+votes = {c: 0 for c in CANDIDATES}
+registered_voters = {}
+
+def show_menu():
+    print("\n=== Election Assistant ===")
+    print("1. Pre-Election Phase")
+    print("2. Election Timeline")
+    print("3. Voting Steps")
+    print("4. Post-Election Phase")
+    print("5. FAQs")
+    print("6. Register as Voter (Youth)")
+    print("7. Practice Voting Simulation")
+    print("8. Show Voting Results")
+    print("0. Exit")
+
+def show_phase(phase_name):
+    print(f"\n--- {phase_name} ---")
+    for step in PHASES[phase_name]:
+        print(f"• {step}")
+
+def show_timeline():
+    print("\n--- Election Timeline ---")
+    for step in PHASES["Election Timeline"]:
+        print(f"[Timeline] {step}")
+
+def show_faqs():
+    print("\n--- FAQs ---")
+    for q, a in FAQS.items():
+        print(f"Q: {q}")
+        print(f"A: {a}\n")
+
+def register_voter():
+    print("\n--- Youth Voter Registration ---")
+    name = input("Enter your name: ")
+    age = input("Enter your age: ")
+    if age.isdigit():
+        age = int(age)
+        if age >= 18:
+            registered_voters[name] = {"age": age, "voted": False}
+            print(f"✅ {name} registered successfully as a voter!")
+        else:
+            print(f"❌ Sorry {name}, you must be at least 18 to vote.")
+    else:
+        print("Invalid age input.")
+
+def voting_simulation():
+    print("\n--- Practice Voting Simulation ---")
+    if not registered_voters:
+        print("❌ No registered voters. Please register first.")
+        return
+    name = input("Enter your registered name: ")
+    if name not in registered_voters:
+        print("❌ You are not registered. Please register first.")
+        return
+    if registered_voters[name]["voted"]:
+        print("❌ You have already voted.")
+        return
+    print("Candidates:")
+    for i, c in enumerate(CANDIDATES, 1):
+        print(f"{i}. {c}")
+    choice = input("Cast your vote (enter number): ")
+    if choice.isdigit() and 1 <= int(choice) <= len(CANDIDATES):
+        selected = CANDIDATES[int(choice)-1]
+        votes[selected] += 1
+        registered_voters[name]["voted"] = True
+        print(f"✅ {name} voted for {selected}")
+    else:
+        print("Invalid choice ❌")
+
+def show_results():
+    print("\n--- Voting Results ---")
+    for candidate, count in votes.items():
+        print(f"{candidate}: {count} votes")
+    # Announce winner
+    winner = max(votes, key=votes.get)
+    print(f"\n🏆 Winner: {winner}")
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Select an option: ")
+        if choice == "1":
+            show_phase("Pre-Election")
+        elif choice == "2":
+            show_timeline()
+        elif choice == "3":
+            show_phase("Voting Steps")
+        elif choice == "4":
+            show_phase("Post-Election")
+        elif choice == "5":
+            show_faqs()
+        elif choice == "6":
+            register_voter()
+        elif choice == "7":
+            voting_simulation()
+        elif choice == "8":
+            show_results()
+        elif choice == "0":
+            print("Exiting Election Assistant. Goodbye!")
+            break
+        else:
+            print("Invalid option. Try again.")
+
+if __name__ == "__main__":
+    main()
